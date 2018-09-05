@@ -20,7 +20,7 @@ var app = {
         description: 'A hand drum for people who like belly dancing.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         origin: 'Turkey',
-        imageUrl: 'https://goo.gl/Q7X6VB'
+        imageUrl: 'https://static.bax-shop.nl/image/product/153173/302981/0c2d119f/450x450/Meinl_HE_124_darbuka.jpg'
       },
       {
         itemId: 3,
@@ -111,15 +111,43 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderCatalogItem(catalogItem) {
-  return createElement('div', {class: 'card', style: 'width: 18rem; height 18rem;'}, [
+  return createElement('div', {class: 'card', style: 'height: 28rem;'}, [
     createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
-    createElement('div', {class: 'card-body'}, [
+    createElement('div', {class: 'card-body'}, []),
+    createElement('div', {class: 'card-footer'}, [
       createElement('h5', {class: 'card-title'}, [catalogItem.name]),
       createElement('h6', {class: 'card-subtitle'}, [catalogItem.brand]),
       createElement('h6', {class: 'card-title'}, [catalogItem.description]),
-      createElement('p', {class: 'card-text'}, [catalogItem.price])
+      createElement('p', {class: 'card-text'}, [('$' + catalogItem.price)])
     ])])
 }
 
+function renderCatalog(catalog) {
+  var $container = createElement('div', {class: 'container'}, [
+    createElement('h1', {class: 'text-center'}, ['Jamazon']),
+    createElement('div', {class: 'row'}, [
+      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
+        renderCatalogItem(catalog.items[0])]),
+      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
+        renderCatalogItem(catalog.items[1])]),
+      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
+        renderCatalogItem(catalog.items[2])]),
+      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
+        renderCatalogItem(catalog.items[3])])
+    ]),
+    createElement('div', {class: 'row'}, [
+      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
+        renderCatalogItem(catalog.items[4])]),
+      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
+        renderCatalogItem(catalog.items[5])]),
+      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
+        renderCatalogItem(catalog.items[6])]),
+      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
+        renderCatalogItem(catalog.items[7])])
+    ])
+  ])
+  return $container
+}
+
 var $catalog = document.querySelector('[data-view="catalog"]')
-$catalog.appendChild(renderCatalogItem(app.catalog.items[0]))
+$catalog.appendChild(renderCatalog(app.catalog))
