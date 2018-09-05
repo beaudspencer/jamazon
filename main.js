@@ -88,3 +88,38 @@ var app = {
     item: null
   }
 }
+
+function createElement(tagName, attributes, children) {
+  var $element = document.createElement(tagName)
+  if (attributes) {
+    for (var name in attributes) {
+      var value = attributes[name]
+      $element.setAttribute(name, value)
+    }
+  }
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i]
+    if (child instanceof Node) {
+      $element.appendChild(child)
+    }
+    else {
+      var textNode = document.createTextNode(child)
+      $element.appendChild(textNode)
+    }
+  }
+  return $element
+}
+
+function renderCatalogItem(catalogItem) {
+  return createElement('div', {class: 'card', style: 'width: 18rem; height 18rem;'}, [
+    createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
+    createElement('div', {class: 'card-body'}, [
+      createElement('h5', {class: 'card-title'}, [catalogItem.name]),
+      createElement('h6', {class: 'card-subtitle'}, [catalogItem.brand]),
+      createElement('h6', {class: 'card-title'}, [catalogItem.description]),
+      createElement('p', {class: 'card-text'}, [catalogItem.price])
+    ])])
+}
+
+var $catalog = document.querySelector('[data-view="catalog"]')
+$catalog.appendChild(renderCatalogItem(app.catalog.items[0]))
