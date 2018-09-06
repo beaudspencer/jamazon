@@ -111,8 +111,8 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderCatalogItem(catalogItem) {
-  return createElement('div', {class: 'card', style: 'height: 28rem;'}, [
-    createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
+  return createElement('div', {class: 'card', style: 'width: 18.5rem;'}, [
+    createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl, style: 'height: 18rem; width: 18rem;'}, []),
     createElement('div', {class: 'card-body'}, []),
     createElement('div', {class: 'card-footer'}, [
       createElement('h5', {class: 'card-title'}, [catalogItem.name]),
@@ -124,28 +124,12 @@ function renderCatalogItem(catalogItem) {
 
 function renderCatalog(catalog) {
   var $container = createElement('div', {class: 'container'}, [
-    createElement('h1', {class: 'text-center'}, ['Jamazon']),
-    createElement('div', {class: 'row'}, [
-      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
-        renderCatalogItem(catalog.items[0])]),
-      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
-        renderCatalogItem(catalog.items[1])]),
-      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
-        renderCatalogItem(catalog.items[2])]),
-      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
-        renderCatalogItem(catalog.items[3])])
-    ]),
-    createElement('div', {class: 'row'}, [
-      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
-        renderCatalogItem(catalog.items[4])]),
-      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
-        renderCatalogItem(catalog.items[5])]),
-      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
-        renderCatalogItem(catalog.items[6])]),
-      createElement('div', {class: 'col-xl', style: 'padding: 1rem;'}, [
-        renderCatalogItem(catalog.items[7])])
-    ])
-  ])
+    createElement('h1', {class: 'text-center'}, ['Jamazon'])])
+  var $row = createElement('div', {class: 'row'}, [])
+  $container.appendChild($row)
+  for (var c = 0; c < catalog.items.length; c++) {
+    $row.appendChild(createElement('div', {class: 'col-3'}, [renderCatalogItem(catalog.items[c])]))
+  }
   return $container
 }
 
