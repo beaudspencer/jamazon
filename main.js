@@ -160,12 +160,15 @@ function findItem(catalogItems, id) {
 
 function renderAppState(appState) {
   var view = ''
-  var $catalog = document.querySelector('[data-view="catalog"]')
   $catalog.appendChild(renderItemDetails(appState.catalog.items[0]))
   if (view) {
     renderCatalog(appState.catalog)
   }
 }
 
+var $catalog = document.querySelector('[data-view="catalog"]')
+
 findItem(app.catalog.items, 0)
 renderAppState(app)
+
+$catalog.addEventListener('click')
