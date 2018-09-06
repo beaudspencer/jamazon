@@ -111,24 +111,24 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderCatalogItem(catalogItem) {
-  return createElement('div', {class: 'card', style: 'width: 18.5rem;'}, [
+  return createElement('div', {class: 'card border-info', style: 'width: 18.5rem; margin: 0 auto;'}, [
     createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl, style: 'height: 18rem; width: 18rem;'}, []),
     createElement('div', {class: 'card-body'}, []),
     createElement('div', {class: 'card-footer'}, [
       createElement('h5', {class: 'card-title'}, [catalogItem.name]),
       createElement('h6', {class: 'card-subtitle'}, [catalogItem.brand]),
-      createElement('h6', {class: 'card-title'}, [catalogItem.description]),
-      createElement('p', {class: 'card-text'}, [('$' + catalogItem.price)])
+      createElement('h6', {class: 'card-title text-secondary'}, [catalogItem.description]),
+      createElement('p', {class: 'card-text text-success'}, [('$' + catalogItem.price)])
     ])])
 }
 
 function renderCatalog(catalog) {
-  var $container = createElement('div', {class: 'container'}, [
-    createElement('h1', {class: 'text-center'}, ['Jamazon'])])
-  var $row = createElement('div', {class: 'row'}, [])
+  var $container = createElement('div', {class: 'container-fluid'}, [
+    createElement('h1', {class: 'text-center text-primary'}, ['Jamazon'])])
+  var $row = createElement('div', {class: 'row justify-content-start'}, [])
   $container.appendChild($row)
   for (var c = 0; c < catalog.items.length; c++) {
-    $row.appendChild(createElement('div', {class: 'col'}, [renderCatalogItem(catalog.items[c])]))
+    $row.appendChild(createElement('div', {class: 'col p-3'}, [renderCatalogItem(catalog.items[c])]))
   }
   return $container
 }
