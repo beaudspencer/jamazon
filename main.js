@@ -172,7 +172,10 @@ findItem(app.catalog.items, 0)
 renderAppState(app)
 
 $catalog.addEventListener('click', function (event) {
-  if (event.target.closest('[itemID]') !== null) {
-    console.log('hey')
+  var $selectedCard = event.target.closest('[itemID]')
+  if ($selectedCard !== null) {
+    var idNum = $selectedCard.getAttribute('itemID')
+    app.view = 'details'
+    app.details.item = idNum
   }
 })
