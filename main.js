@@ -160,9 +160,9 @@ function findItem(catalogItems, id) {
 
 function renderAppState(appState) {
   var view = ''
-  $catalog.appendChild(renderItemDetails(appState.catalog.items[0]))
+  $catalog.appendChild(renderCatalog(appState.catalog))
   if (view) {
-    renderCatalog(appState.catalog)
+    renderItemDetails(appState.catalog.items[0])
   }
 }
 
@@ -171,4 +171,8 @@ var $catalog = document.querySelector('[data-view="catalog"]')
 findItem(app.catalog.items, 0)
 renderAppState(app)
 
-$catalog.addEventListener('click')
+$catalog.addEventListener('click', function (event) {
+  if (event.target.closest('[itemID]') !== null) {
+    console.log('hey')
+  }
+})
