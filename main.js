@@ -122,6 +122,23 @@ function renderCatalogItem(catalogItem) {
     ])])
 }
 
+function renderItemDetails(catalogItem) {
+  return createElement('div', {class: 'container'}, [
+    createElement('div', {class: 'card border-info', style: 'width: 40rem; margin: 0 auto;'}, [
+      createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
+      createElement('h5', {class: 'card-title ml-2'}, [catalogItem.name, ' -- ',
+        createElement('span', {class: 'text-muted'}, [catalogItem.description])
+      ]),
+      createElement('div', {class: 'card-body'}, [
+        createElement('p', {class: 'card-text'}, [catalogItem.details])
+      ]),
+      createElement('div', {class: 'card-footer'}, [
+        createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
+      ])
+    ])
+  ])
+}
+
 function renderCatalog(catalog) {
   var $container = createElement('div', {class: 'container-fluid'}, [
     createElement('h1', {class: 'text-center text-primary'}, ['Jamazon'])])
@@ -134,8 +151,12 @@ function renderCatalog(catalog) {
 }
 
 function renderAppState(appState) {
+  var view = ''
   var $catalog = document.querySelector('[data-view="catalog"]')
-  $catalog.appendChild(renderCatalog(app.catalog))
+  $catalog.appendChild(renderItemDetails(appState.catalog.items[0]))
+  if (view) {
+    renderCatalog(appState.catalog)
+  }
 }
 
 renderAppState(app)
