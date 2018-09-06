@@ -111,8 +111,9 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderCatalogItem(catalogItem) {
-  return createElement('div', {class: 'card border-info', style: 'width: 18.5rem; height: 28rem; margin: 0 auto;'}, [
-    createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
+  return createElement('div', {class: 'card border-info', style: 'width: 18.5rem; height: 30rem; margin: 0 auto;'}, [
+    createElement('div', {class: 'card-body'}, []),
+    createElement('img', {class: 'card-img', src: catalogItem.imageUrl}, []),
     createElement('div', {class: 'card-body'}, []),
     createElement('div', {class: 'card-footer'}, [
       createElement('h5', {class: 'card-title'}, [catalogItem.name]),
