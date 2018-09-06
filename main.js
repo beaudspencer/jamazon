@@ -158,6 +158,15 @@ function findItem(catalogItems, id) {
   }
 }
 
+function viewState(view) {
+  var $containers = document.querySelectorAll('[data-view]')
+  for (var c = 0; c < $containers.length; c++) {
+    if ($containers[c].getAttribute('[data-view]') !== view) {
+      $containers[c].classList.add('hidden')
+    }
+  }
+}
+
 function renderAppState(appState) {
   var view = ''
   $catalog.appendChild(renderCatalog(appState.catalog))
@@ -177,7 +186,6 @@ $catalog.addEventListener('click', function (event) {
     var idNum = $selectedCard.getAttribute('itemID')
     app.view = 'details'
     app.details.item = (idNum - 1)
-    console.log(app.details.item)
-    console.log(app.view)
+    viewState(app.view)
   }
 })
