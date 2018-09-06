@@ -111,14 +111,13 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderCatalogItem(catalogItem) {
-  return createElement('div', {class: 'card border-info', style: 'width: 18.5rem; margin: 0 auto;'}, [
-    createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl, style: 'height: 18rem; width: 18rem;'}, []),
+  return createElement('div', {class: 'card border-info', style: 'width: 18.5rem; height: 28rem; margin: 0 auto;'}, [
+    createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
     createElement('div', {class: 'card-body'}, []),
     createElement('div', {class: 'card-footer'}, [
       createElement('h5', {class: 'card-title'}, [catalogItem.name]),
       createElement('h6', {class: 'card-subtitle'}, [catalogItem.brand]),
-      createElement('h6', {class: 'card-title text-secondary'}, [catalogItem.description]),
-      createElement('p', {class: 'card-text text-success'}, [('$' + catalogItem.price)])
+      createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
     ])])
 }
 
