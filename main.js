@@ -125,7 +125,7 @@ function renderCatalogItem(catalogItem) {
 function renderItemDetails(catalogItem) {
   return createElement('div', {class: 'container'}, [
     createElement('div', {class: 'card border-info', style: 'width: 40rem; margin: 0 auto;'}, [
-      createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
+      createElement('img', {class: 'card-img-top py-2', src: catalogItem.imageUrl}, []),
       createElement('h5', {class: 'card-title ml-2'}, [catalogItem.name, ' -- ',
         createElement('span', {class: 'text-muted'}, [catalogItem.description])
       ]),
@@ -152,7 +152,7 @@ function renderCatalog(catalog) {
 
 function findItem(catalogItems, id) {
   for (var c = 0; c < catalogItems.length; c++) {
-    if (catalogItems[c] === id) {
+    if (catalogItems[c].itemId === id) {
       return catalogItems[c]
     }
   }
@@ -164,28 +164,36 @@ function viewState(view) {
     if ($containers[c].getAttribute('[data-view]') !== view) {
       $containers[c].classList.add('hidden')
     }
+    else {
+      $containers[c].classList.remove('hidden')
+    }
   }
 }
 
 function renderAppState(appState) {
-  var view = ''
-  $catalog.appendChild(renderCatalog(appState.catalog))
-  if (view) {
-    renderItemDetails(appState.catalog.items[0])
+  if (appState.view === 'catalog') {
+    $catalog.appendChild(renderCatalog(appState.catalog))
+  }
+  else {
+    $details.appendChild(renderItemDetails(appState.details.item))
   }
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
+var $details = document.querySelector('[data-view="details"]')
 
-findItem(app.catalog.items, 0)
 renderAppState(app)
 
 $catalog.addEventListener('click', function (event) {
+  $catalog.innerHTML = ''
+  $details.innerHTML = ''
   var $selectedCard = event.target.closest('[itemID]')
   if ($selectedCard !== null) {
     var idNum = $selectedCard.getAttribute('itemID')
+    idNum = parseInt(idNum, 10)
     app.view = 'details'
-    app.details.item = (idNum - 1)
+    app.details.item = findItem(app.catalog.items, idNum)
     viewState(app.view)
   }
+  renderAppState(app)
 })
