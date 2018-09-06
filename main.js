@@ -111,7 +111,7 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderCatalogItem(catalogItem) {
-  return createElement('div', {class: 'card border-info', style: 'width: 18.5rem; height: 30rem; margin: 0 auto;'}, [
+  return createElement('div', {class: 'card border-info', itemID: catalogItem.itemId, style: 'width: 18.5rem; height: 30rem; margin: 0 auto;'}, [
     createElement('div', {class: 'card-body'}, []),
     createElement('img', {class: 'card-img', src: catalogItem.imageUrl}, []),
     createElement('div', {class: 'card-body'}, []),
@@ -150,6 +150,14 @@ function renderCatalog(catalog) {
   return $container
 }
 
+function findItem(catalogItems, id) {
+  for (var c = 0; c < catalogItems.length; c++) {
+    if (catalogItems[c] === id) {
+      return catalogItems[c]
+    }
+  }
+}
+
 function renderAppState(appState) {
   var view = ''
   var $catalog = document.querySelector('[data-view="catalog"]')
@@ -159,4 +167,5 @@ function renderAppState(appState) {
   }
 }
 
+findItem(app.catalog.items, 0)
 renderAppState(app)
