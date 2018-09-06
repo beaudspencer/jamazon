@@ -176,6 +176,8 @@ $catalog.addEventListener('click', function (event) {
   if ($selectedCard !== null) {
     var idNum = $selectedCard.getAttribute('itemID')
     app.view = 'details'
-    app.details.item = idNum
+    app.details.item = (idNum - 1)
+    console.log(app.details.item)
+    console.log(app.view)
   }
 })
