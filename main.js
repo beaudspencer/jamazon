@@ -128,10 +128,14 @@ function renderCatalog(catalog) {
   var $row = createElement('div', {class: 'row'}, [])
   $container.appendChild($row)
   for (var c = 0; c < catalog.items.length; c++) {
-    $row.appendChild(createElement('div', {class: 'col-3'}, [renderCatalogItem(catalog.items[c])]))
+    $row.appendChild(createElement('div', {class: 'col'}, [renderCatalogItem(catalog.items[c])]))
   }
   return $container
 }
 
-var $catalog = document.querySelector('[data-view="catalog"]')
-$catalog.appendChild(renderCatalog(app.catalog))
+function renderAppState(appState) {
+  var $catalog = document.querySelector('[data-view="catalog"]')
+  $catalog.appendChild(renderCatalog(app.catalog))
+}
+
+renderAppState(app)
