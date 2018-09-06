@@ -171,6 +171,9 @@ function viewState(view) {
 }
 
 function renderAppState(appState) {
+  $catalog.innerHTML = ''
+  $details.innerHTML = ''
+  viewState(app.view)
   if (appState.view === 'catalog') {
     $catalog.appendChild(renderCatalog(appState.catalog))
   }
@@ -185,15 +188,12 @@ var $details = document.querySelector('[data-view="details"]')
 renderAppState(app)
 
 $catalog.addEventListener('click', function (event) {
-  $catalog.innerHTML = ''
-  $details.innerHTML = ''
   var $selectedCard = event.target.closest('[itemID]')
   if ($selectedCard !== null) {
     var idNum = $selectedCard.getAttribute('itemID')
     idNum = parseInt(idNum, 10)
     app.view = 'details'
     app.details.item = findItem(app.catalog.items, idNum)
-    viewState(app.view)
   }
   renderAppState(app)
 })
