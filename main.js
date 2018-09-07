@@ -1,5 +1,6 @@
 var app = {
   view: 'catalog',
+  cart: [],
   catalog: {
     items: [
       {
@@ -136,7 +137,8 @@ function renderItemDetails(catalogItem) {
         createElement('p', {class: 'card-text'}, [catalogItem.details])
       ]),
       createElement('div', {class: 'card-footer'}, [
-        createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
+        createElement('button', {class: 'btn btn-primary float-left'}, ['Add']),
+        createElement('p', {class: 'card-text text-success text-right mt-2'}, [('$' + catalogItem.price)])
       ])
     ])
   ])
@@ -161,6 +163,12 @@ function findItem(catalogItems, id) {
   }
 }
 
+function renderCartCount(cart) {
+  return createElement('div', {class: 'float-right m-3'}, [
+    createElement('h6', {class: 'text-primary'}, [('Cart (' + cart.length + ')')])
+  ])
+}
+
 function viewState(view) {
   var $containers = document.querySelectorAll('[data-view]')
   for (var c = 0; c < $containers.length; c++) {
@@ -176,6 +184,7 @@ function viewState(view) {
 function renderAppState(appState) {
   $catalog.innerHTML = ''
   $details.innerHTML = ''
+  $cart.innerHTML = ''
   viewState(app.view)
   if (appState.view === 'catalog') {
     $catalog.appendChild(renderCatalog(appState.catalog))
@@ -183,10 +192,12 @@ function renderAppState(appState) {
   else {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
+  $cart.appendChild(renderCartCount(appState.cart))
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
 var $details = document.querySelector('[data-view="details"]')
+var $cart = document.querySelector('[data-view="cart"]')
 
 renderAppState(app)
 
@@ -199,4 +210,12 @@ $catalog.addEventListener('click', function (event) {
     app.details.item = findItem(app.catalog.items, idNum)
   }
   renderAppState(app)
+})
+
+$details.addEventListener('click', function (event) {
+  var $clicked = event.target
+  if ($clicked.closest('.btn') !== null) {
+    app.cart.push(app.details.item)
+    renderAppState(app)
+  }
 })
