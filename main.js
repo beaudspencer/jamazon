@@ -205,8 +205,6 @@ function renderCartSummary(cart) {
   return $cartSummary
 }
 
-renderCartSummary()
-
 function viewState(view) {
   var $containers = document.querySelectorAll('[data-view]')
   for (var c = 0; c < $containers.length; c++) {
@@ -223,6 +221,7 @@ function renderAppState(appState) {
   $catalog.innerHTML = ''
   $details.innerHTML = ''
   $cart.innerHTML = ''
+  $cartSum.innerHTML = ''
   viewState(app.view)
   if (appState.view === 'catalog') {
     $catalog.appendChild(renderCatalog(appState.catalog))
@@ -230,12 +229,17 @@ function renderAppState(appState) {
   else if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
+  else if (appState.view === 'cart-summary') {
+    $cartSum.appendChild(renderCartSummary(appState.cart))
+  }
+
   $cart.appendChild(renderCartCount(appState.cart))
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
 var $details = document.querySelector('[data-view="details"]')
 var $cart = document.querySelector('[data-view="cart"]')
+var $cartSum = document.querySelector('[data-view="cart-summary"]')
 
 renderAppState(app)
 
