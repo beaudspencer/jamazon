@@ -215,6 +215,7 @@ $catalog.addEventListener('click', function (event) {
 $details.addEventListener('click', function (event) {
   var $clicked = event.target
   if ($clicked.closest('.btn') !== null) {
-    console.log('Boom')
+    app.cart.push(app.details.item)
+    console.log(app.cart)
   }
 })
