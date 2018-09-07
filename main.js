@@ -171,15 +171,15 @@ function renderCartCount(cart) {
 }
 
 function renderCartItem(cartItem) {
-  return createElement('div', {class: 'card'}, [
-    createElement('span', {}, [
-      createElement('img', {class: 'card-img'}, [])
+  return createElement('div', {class: 'container'}, [
+    createElement('span', {class: 'float-left', style: 'width: 18rem;'}, [
+      createElement('img', {class: 'card-img', src: cartItem.imageUrl}, [])
     ]),
-    createElement('span', {}, [
-      createElement('div', {class: 'card-body'}, [
-        createElement('h5', {class: 'text-dark'}, []),
-        createElement('p', {class: 'card-text'}, []),
-        createElement('p', {class: 'card-footer'}, [])
+    createElement('span', {class: 'mt-3'}, [
+      createElement('div', {class: 'card-body card-border-info'}, [
+        createElement('h5', {class: 'text-dark'}, [(cartItem.name + ' - ' + cartItem.brand)]),
+        createElement('p', {class: 'card-text'}, [cartItem.description]),
+        createElement('p', {class: 'card-footer'}, [cartItem.price])
       ])
     ])
   ])
@@ -229,7 +229,7 @@ function renderAppState(appState) {
   else if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
-  else if (appState.view === 'cart-summary') {
+  else if (appState.view === 'cart') {
     $cartSum.appendChild(renderCartSummary(appState.cart))
   }
 
@@ -251,9 +251,11 @@ $catalog.addEventListener('click', function (event) {
     app.view = 'details'
     app.details.item = findItem(app.catalog.items, idNum)
   }
-  if (event.target === $cart) {
-    app.view = 'cart-summary'
-  }
+  renderAppState(app)
+})
+
+$cart.addEventListener('click', function (event) {
+  app.view = 'cart'
   renderAppState(app)
 })
 
