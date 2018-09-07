@@ -200,7 +200,7 @@ function renderCartSummary(cart) {
     createElement('p', {class: 'text-success'}, [('Total: $' + totalPrice)])
   ]))
 
-  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 2rem 5.5rem;'}, ['Continue Shopping']))
+  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 2rem 5.5rem;', id: 'continue'}, ['Continue Shopping']))
   return $cartSummary
 }
 
@@ -252,7 +252,11 @@ $catalog.addEventListener('click', function (event) {
 })
 
 $cart.addEventListener('click', function (event) {
+  var $continue = document.querySelector('#continue')
   app.view = 'cart'
+  if (event.target === $continue) {
+    app.view = 'catalog'
+  }
   renderAppState(app)
 })
 
