@@ -171,13 +171,16 @@ function renderCartCount(cart) {
 }
 
 function renderCartItem(cartItem) {
-  return createElement('div', {class: 'row', style: 'width: 34rem; margin: 0 auto;'}, [
+  return createElement('div', {class: 'row', style: 'margin: 0 auto;'}, [
     createElement('div', {class: 'col'}, [
-      createElement('img', {class: 'card-img float-left', src: cartItem.imageUrl}, [])]),
+      createElement('div', {style: 'width: 26rem;'}, [
+        createElement('img', {class: 'card-img float-left', src: cartItem.imageUrl}, [])
+      ])
+    ]),
     createElement('div', {class: 'col'}, [
-      createElement('div', {class: 'card float-right'}, [
+      createElement('div', {class: 'card float-right', style: 'height: 100%;'}, [
         createElement('h5', {class: 'card-header text-dark'}, [(cartItem.name + ' - ' + cartItem.brand)]),
-        createElement('p', {class: 'card-body'}, [cartItem.description]),
+        createElement('p', {class: 'card-body'}, [cartItem.details]),
         createElement('p', {class: 'text-success text-right mr-3'}, [('$' + cartItem.price)])
       ])
     ])
@@ -195,12 +198,12 @@ function renderCartSummary(cart) {
     totalPrice += cart[c].price
     $cartList.appendChild(createElement('li', {class: 'list-group-item'}, [renderCartItem(cart[c])]))
   }
-  $cartList.appendChild(createElement('div', {class: 'text-right'}, [
-    createElement('p', {}, [(cart.length + 'items')]),
-    createElement('p', {class: 'text-success'}, [('Total: $' + totalPrice)])
+  $cartList.appendChild(createElement('div', {class: 'text-right', style: 'margin-right: 3rem;'}, [
+    createElement('p', {style: 'margin-top: 2rem;'}, [(cart.length + ' item(s)')]),
+    createElement('p', {class: 'text-success mt-3'}, [('Total: $' + totalPrice)])
   ]))
 
-  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 2rem 5.5rem;', id: 'continue'}, ['Continue Shopping']))
+  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 1rem 8.5rem;', id: 'continue'}, ['Continue Shopping']))
   return $cartSummary
 }
 
