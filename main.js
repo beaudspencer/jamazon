@@ -217,6 +217,9 @@ $details.addEventListener('click', function (event) {
   var $clicked = event.target
   if ($clicked.closest('.btn-primary') !== null) {
     app.cart.push(app.details.item)
-    renderAppState(app)
   }
+  if ($clicked.closest('.btn-warning') !== null) {
+    app.view = 'catalog'
+  }
+  renderAppState(app)
 })
