@@ -163,7 +163,7 @@ function findItem(catalogItems, id) {
 }
 
 function renderCartCount(cart) {
-  return createElement('div', {}, [
+  return createElement('div', {class: 'float-right m-3'}, [
     createElement('h6', {class: 'text-primary'}, [('Cart (' + cart.length + ')')])
   ])
 }
@@ -195,7 +195,7 @@ function renderAppState(appState) {
 
 var $catalog = document.querySelector('[data-view="catalog"]')
 var $details = document.querySelector('[data-view="details"]')
-var $cart = document.querySelector('[data-view="details"]')
+var $cart = document.querySelector('[data-view="cart"]')
 
 renderAppState(app)
 
