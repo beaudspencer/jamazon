@@ -171,15 +171,14 @@ function renderCartCount(cart) {
 }
 
 function renderCartItem(cartItem) {
-  return createElement('div', {class: 'container'}, [
-    createElement('span', {class: 'float-left', style: 'width: 18rem;'}, [
-      createElement('img', {class: 'card-img', src: cartItem.imageUrl}, [])
-    ]),
-    createElement('span', {class: 'mt-3'}, [
-      createElement('div', {class: 'card-body card-border-info'}, [
-        createElement('h5', {class: 'text-dark'}, [(cartItem.name + ' - ' + cartItem.brand)]),
-        createElement('p', {class: 'card-text'}, [cartItem.description]),
-        createElement('p', {class: 'card-footer'}, [cartItem.price])
+  return createElement('div', {class: 'row', style: 'width: 34rem; margin: 0 auto;'}, [
+    createElement('div', {class: 'col'}, [
+      createElement('img', {class: 'card-img float-left', src: cartItem.imageUrl}, [])]),
+    createElement('div', {class: 'col'}, [
+      createElement('div', {class: 'card float-right'}, [
+        createElement('h5', {class: 'card-header text-dark'}, [(cartItem.name + ' - ' + cartItem.brand)]),
+        createElement('p', {class: 'card-body'}, [cartItem.description]),
+        createElement('p', {class: 'text-success text-right mr-3'}, [('$' + cartItem.price)])
       ])
     ])
   ])
@@ -198,10 +197,10 @@ function renderCartSummary(cart) {
   }
   $cartList.appendChild(createElement('div', {class: 'text-right'}, [
     createElement('p', {}, [(cart.length + 'items')]),
-    createElement('p', {}, [('Total: $' + totalPrice)])
+    createElement('p', {class: 'text-success'}, [('Total: $' + totalPrice)])
   ]))
 
-  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning text-center'}, ['Continue Shopping']))
+  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 2rem 5.5rem;'}, ['Continue Shopping']))
   return $cartSummary
 }
 
@@ -221,8 +220,8 @@ function renderAppState(appState) {
   $catalog.innerHTML = ''
   $details.innerHTML = ''
   $cart.innerHTML = ''
-  $cartSum.innerHTML = ''
   viewState(app.view)
+  $cart.appendChild(renderCartCount(appState.cart))
   if (appState.view === 'catalog') {
     $catalog.appendChild(renderCatalog(appState.catalog))
   }
@@ -230,16 +229,14 @@ function renderAppState(appState) {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
   else if (appState.view === 'cart') {
-    $cartSum.appendChild(renderCartSummary(appState.cart))
+    $cart.appendChild(renderCartSummary(appState.cart))
   }
 
-  $cart.appendChild(renderCartCount(appState.cart))
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
 var $details = document.querySelector('[data-view="details"]')
 var $cart = document.querySelector('[data-view="cart"]')
-var $cartSum = document.querySelector('[data-view="cart-summary"]')
 
 renderAppState(app)
 
