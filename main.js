@@ -200,6 +200,9 @@ function renderCartSummary(cart) {
     createElement('p', {}, [(cart.length + 'items')]),
     createElement('p', {}, [('Total: $' + totalPrice)])
   ]))
+
+  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning text-center'}, ['Continue Shopping']))
+  return $cartSummary
 }
 
 renderCartSummary()
