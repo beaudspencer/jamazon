@@ -111,7 +111,7 @@ function createElement(tagName, attributes, children) {
 }
 
 function renderCatalogItem(catalogItem) {
-  return createElement('div', {class: 'card border-info', style: 'width: 18.5rem; height: 30rem; margin: 0 auto;'}, [
+  return createElement('div', {class: 'card border-info', itemID: catalogItem.itemId, style: 'width: 18.5rem; height: 30rem; margin: 0 auto;'}, [
     createElement('div', {class: 'card-body'}, []),
     createElement('img', {class: 'card-img', src: catalogItem.imageUrl}, []),
     createElement('div', {class: 'card-body'}, []),
@@ -120,6 +120,26 @@ function renderCatalogItem(catalogItem) {
       createElement('h6', {class: 'card-subtitle'}, [catalogItem.brand]),
       createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
     ])])
+}
+
+function renderItemDetails(catalogItem) {
+  return createElement('div', {class: 'details'}, [
+    createElement('h1', {class: 'text-center text-primary'}, ['Jamazon']),
+    createElement('div', {class: 'card border-info align-middle', style: 'width: 40rem; margin: 0 auto;'}, [
+      createElement('h5', {class: 'card-title ml-2'}, [catalogItem.name, ' -- ',
+        createElement('span', {class: 'text-muted'}, [catalogItem.description])
+      ]),
+      createElement('div', {class: 'card-body'}, [
+        createElement('div', {class: 'card border-info float-left mr-3', style: 'width: 14rem;'}, [
+          createElement('img', {class: 'card-img p-2', src: catalogItem.imageUrl}, [])
+        ]),
+        createElement('p', {class: 'card-text'}, [catalogItem.details])
+      ]),
+      createElement('div', {class: 'card-footer'}, [
+        createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
+      ])
+    ])
+  ])
 }
 
 function renderCatalog(catalog) {
@@ -133,9 +153,50 @@ function renderCatalog(catalog) {
   return $container
 }
 
-function renderAppState(appState) {
-  var $catalog = document.querySelector('[data-view="catalog"]')
-  $catalog.appendChild(renderCatalog(app.catalog))
+function findItem(catalogItems, id) {
+  for (var c = 0; c < catalogItems.length; c++) {
+    if (catalogItems[c].itemId === id) {
+      return catalogItems[c]
+    }
+  }
 }
 
+function viewState(view) {
+  var $containers = document.querySelectorAll('[data-view]')
+  for (var c = 0; c < $containers.length; c++) {
+    if ($containers[c].getAttribute('[data-view]') !== view) {
+      $containers[c].classList.add('hidden')
+    }
+    else {
+      $containers[c].classList.remove('hidden')
+    }
+  }
+}
+
+function renderAppState(appState) {
+  $catalog.innerHTML = ''
+  $details.innerHTML = ''
+  viewState(app.view)
+  if (appState.view === 'catalog') {
+    $catalog.appendChild(renderCatalog(appState.catalog))
+  }
+  else {
+    $details.appendChild(renderItemDetails(appState.details.item))
+  }
+}
+
+var $catalog = document.querySelector('[data-view="catalog"]')
+var $details = document.querySelector('[data-view="details"]')
+
 renderAppState(app)
+
+$catalog.addEventListener('click', function (event) {
+  var $selectedCard = event.target.closest('[itemID]')
+  if ($selectedCard !== null) {
+    var idNum = $selectedCard.getAttribute('itemID')
+    idNum = parseInt(idNum, 10)
+    app.view = 'details'
+    app.details.item = findItem(app.catalog.items, idNum)
+  }
+  renderAppState(app)
+})
