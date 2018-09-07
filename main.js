@@ -190,11 +190,12 @@ function renderAppState(appState) {
   else {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
-  renderCartCount(appState.cart)
+  $cart.appendChild(renderCartCount(appState.cart))
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
 var $details = document.querySelector('[data-view="details"]')
+var $cart = document.querySelector('[data-view="details"]')
 
 renderAppState(app)
 
