@@ -1,6 +1,7 @@
 var app = {
   view: 'catalog',
   cart: [],
+  totalPrice: 0,
   catalog: {
     items: [
       {
@@ -187,20 +188,18 @@ function renderCartItem(cartItem) {
   ])
 }
 
-function renderCartSummary(cart) {
-  var totalPrice = 0
+function renderCartSummary(cart, total) {
   var $cartSummary = createElement('div', {}, [
     createElement('h2', {class: 'text-center text-primary'}, ['Cart'])
   ])
   var $cartList = createElement('ul', {class: 'list-group'}, [])
   $cartSummary.appendChild($cartList)
   for (var c = 0; c < cart.length; c++) {
-    totalPrice += cart[c].price
     $cartList.appendChild(createElement('li', {class: 'list-group-item'}, [renderCartItem(cart[c])]))
   }
   $cartList.appendChild(createElement('div', {class: 'text-right', style: 'margin-right: 3rem;'}, [
     createElement('p', {style: 'margin-top: 2rem;'}, [(cart.length + ' item(s)')]),
-    createElement('p', {class: 'text-success mt-3'}, [('Total: $' + totalPrice)])
+    createElement('p', {class: 'text-success mt-3'}, [('Total: $' + total)])
   ]))
 
   $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 1rem 8.5rem;', id: 'continue'}, ['Continue Shopping']))
@@ -232,7 +231,7 @@ function renderAppState(appState) {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
   else if (appState.view === 'cart') {
-    $cart.appendChild(renderCartSummary(appState.cart))
+    $cart.appendChild(renderCartSummary(appState.cart, app.totalPrice))
   }
 
 }
@@ -267,6 +266,7 @@ $details.addEventListener('click', function (event) {
   var $clicked = event.target
   if ($clicked.getAttribute('id') === 'add') {
     app.cart.push(app.details.item)
+    app.totalPrice += app.details.item.price
   }
   if ($clicked.getAttribute('id') === 'return') {
     app.view = 'catalog'
