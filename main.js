@@ -215,10 +215,10 @@ $catalog.addEventListener('click', function (event) {
 
 $details.addEventListener('click', function (event) {
   var $clicked = event.target
-  if ($clicked.closest('#add') !== null) {
+  if ($clicked.getAttribute('id') === 'add') {
     app.cart.push(app.details.item)
   }
-  if ($clicked.closest('#return') !== null) {
+  if ($clicked.getAttribute('id') === 'return') {
     app.view = 'catalog'
   }
   renderAppState(app)
