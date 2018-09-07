@@ -185,7 +185,24 @@ function renderCartItem(cartItem) {
   ])
 }
 
-renderCartItem()
+function renderCartSummary(cart) {
+  var totalPrice = 0
+  var $cartSummary = createElement('div', {}, [
+    createElement('h2', {class: 'text-center text-primary'}, ['Cart'])
+  ])
+  var $cartList = createElement('ul', {class: 'list-group'}, [])
+  $cartSummary.appendChild($cartList)
+  for (var c = 0; c < cart.length; c++) {
+    totalPrice += cart[c].price
+    $cartList.appendChild(createElement('li', {class: 'list-group-item'}, [renderCartItem(cart[c])]))
+  }
+  $cartList.appendChild(createElement('div', {class: 'text-right'}, [
+    createElement('p', {}, [(cart.length + 'items')]),
+    createElement('p', {}, [('Total: $' + totalPrice)])
+  ]))
+}
+
+renderCartSummary()
 
 function viewState(view) {
   var $containers = document.querySelectorAll('[data-view]')
