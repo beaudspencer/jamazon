@@ -137,7 +137,8 @@ function renderItemDetails(catalogItem) {
         createElement('p', {class: 'card-text'}, [catalogItem.details])
       ]),
       createElement('div', {class: 'card-footer'}, [
-        createElement('p', {class: 'card-text text-success text-left'}, [('$' + catalogItem.price)])
+        createElement('button', {class: 'btn btn-primary float-left'}, ['Add']),
+        createElement('p', {class: 'card-text text-success text-right mt-2'}, [('$' + catalogItem.price)])
       ])
     ])
   ])
@@ -183,6 +184,7 @@ function viewState(view) {
 function renderAppState(appState) {
   $catalog.innerHTML = ''
   $details.innerHTML = ''
+  $cart.innerHTML = ''
   viewState(app.view)
   if (appState.view === 'catalog') {
     $catalog.appendChild(renderCatalog(appState.catalog))
