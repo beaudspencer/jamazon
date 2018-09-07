@@ -1,5 +1,6 @@
 var app = {
   view: 'catalog',
+  cart: [],
   catalog: {
     items: [
       {
@@ -136,7 +137,7 @@ function renderItemDetails(catalogItem) {
         createElement('p', {class: 'card-text'}, [catalogItem.details])
       ]),
       createElement('div', {class: 'card-footer'}, [
-        createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
+        createElement('p', {class: 'card-text text-success text-left'}, [('$' + catalogItem.price)])
       ])
     ])
   ])
