@@ -251,6 +251,9 @@ $catalog.addEventListener('click', function (event) {
     app.view = 'details'
     app.details.item = findItem(app.catalog.items, idNum)
   }
+  if (event.target === $cart) {
+    app.view = 'cart-summary'
+  }
   renderAppState(app)
 })
 
