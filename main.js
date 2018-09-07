@@ -123,13 +123,16 @@ function renderCatalogItem(catalogItem) {
 }
 
 function renderItemDetails(catalogItem) {
-  return createElement('div', {class: 'container'}, [
-    createElement('div', {class: 'card border-info', style: 'width: 40rem; margin: 0 auto;'}, [
-      createElement('img', {class: 'card-img-top py-2', src: catalogItem.imageUrl}, []),
+  return createElement('div', {class: 'details'}, [
+    createElement('h1', {class: 'text-center text-primary'}, ['Jamazon']),
+    createElement('div', {class: 'card border-info align-middle', style: 'width: 40rem; margin: 0 auto;'}, [
       createElement('h5', {class: 'card-title ml-2'}, [catalogItem.name, ' -- ',
         createElement('span', {class: 'text-muted'}, [catalogItem.description])
       ]),
       createElement('div', {class: 'card-body'}, [
+        createElement('div', {class: 'card border-info float-left mr-3', style: 'width: 14rem;'}, [
+          createElement('img', {class: 'card-img p-2', src: catalogItem.imageUrl}, [])
+        ]),
         createElement('p', {class: 'card-text'}, [catalogItem.details])
       ]),
       createElement('div', {class: 'card-footer'}, [
