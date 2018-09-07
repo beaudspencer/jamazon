@@ -138,8 +138,8 @@ function renderItemDetails(catalogItem) {
       ]),
       createElement('div', {class: 'card-footer'}, [
         createElement('span', {class: 'card-text text-success float-right mt-2'}, [('$' + catalogItem.price)]),
-        createElement('button', {class: 'btn btn-primary float-right mr-3'}, ['Add']),
-        createElement('button', {class: 'btn btn-warning ml-3'}, ['Back'])
+        createElement('button', {class: 'btn btn-primary float-right mr-3', id: 'add'}, ['Add']),
+        createElement('button', {class: 'btn btn-warning ml-3', id: 'return'}, ['Back'])
       ])
     ])
   ])
@@ -215,10 +215,10 @@ $catalog.addEventListener('click', function (event) {
 
 $details.addEventListener('click', function (event) {
   var $clicked = event.target
-  if ($clicked.closest('.btn-primary') !== null) {
+  if ($clicked.closest('#add') !== null) {
     app.cart.push(app.details.item)
   }
-  if ($clicked.closest('.btn-warning') !== null) {
+  if ($clicked.closest('#return') !== null) {
     app.view = 'catalog'
   }
   renderAppState(app)
