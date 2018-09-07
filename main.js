@@ -162,6 +162,12 @@ function findItem(catalogItems, id) {
   }
 }
 
+function renderCartCount(cart) {
+  return createElement('div', {}, [
+    createElement('h6', {class: 'text-primary'}, [('Cart (' + cart.length + ')')])
+  ])
+}
+
 function viewState(view) {
   var $containers = document.querySelectorAll('[data-view]')
   for (var c = 0; c < $containers.length; c++) {
@@ -184,6 +190,7 @@ function renderAppState(appState) {
   else {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
+  renderCartCount(appState.cart)
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
