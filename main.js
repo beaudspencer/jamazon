@@ -164,10 +164,53 @@ function findItem(catalogItems, id) {
   }
 }
 
+function getTotal(cart) {
+  var total = 0
+  for (var c = 0; c < cart.length; c++) {
+    total += cart[c].price
+  }
+  return total
+}
+
 function renderCartCount(cart) {
   return createElement('div', {class: 'float-right m-3'}, [
     createElement('h6', {class: 'text-primary'}, [('Cart (' + cart.length + ')')])
   ])
+}
+
+function renderCartItem(cartItem) {
+  return createElement('div', {class: 'row', style: 'margin: 0 auto;'}, [
+    createElement('div', {class: 'col'}, [
+      createElement('div', {style: 'width: 26rem;'}, [
+        createElement('img', {class: 'card-img float-left', src: cartItem.imageUrl}, [])
+      ])
+    ]),
+    createElement('div', {class: 'col'}, [
+      createElement('div', {class: 'card float-right', style: 'height: 100%;'}, [
+        createElement('h5', {class: 'card-header text-dark'}, [(cartItem.name + ' - ' + cartItem.brand)]),
+        createElement('p', {class: 'card-body'}, [cartItem.details]),
+        createElement('p', {class: 'text-success text-right mr-3'}, [('$' + cartItem.price)])
+      ])
+    ])
+  ])
+}
+
+function renderCartSummary(cart, total) {
+  var $cartSummary = createElement('div', {}, [
+    createElement('h2', {class: 'text-center text-primary'}, ['Cart'])
+  ])
+  var $cartList = createElement('ul', {class: 'list-group'}, [])
+  $cartSummary.appendChild($cartList)
+  for (var c = 0; c < cart.length; c++) {
+    $cartList.appendChild(createElement('li', {class: 'list-group-item'}, [renderCartItem(cart[c])]))
+  }
+  $cartList.appendChild(createElement('div', {class: 'text-right', style: 'margin-right: 3rem;'}, [
+    createElement('p', {style: 'margin-top: 2rem;'}, [(cart.length + ' item(s)')]),
+    createElement('p', {class: 'text-success mt-3'}, [('Total: $' + getTotal(cart))])
+  ]))
+
+  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 1rem 8.5rem;', id: 'continue'}, ['Continue Shopping']))
+  return $cartSummary
 }
 
 function viewState(view) {
@@ -187,13 +230,17 @@ function renderAppState(appState) {
   $details.innerHTML = ''
   $cart.innerHTML = ''
   viewState(app.view)
+  $cart.appendChild(renderCartCount(appState.cart))
   if (appState.view === 'catalog') {
     $catalog.appendChild(renderCatalog(appState.catalog))
   }
-  else {
+  else if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
-  $cart.appendChild(renderCartCount(appState.cart))
+  else if (appState.view === 'cart') {
+    $cart.appendChild(renderCartSummary(appState.cart, app.totalPrice))
+  }
+
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
@@ -209,6 +256,15 @@ $catalog.addEventListener('click', function (event) {
     idNum = parseInt(idNum, 10)
     app.view = 'details'
     app.details.item = findItem(app.catalog.items, idNum)
+  }
+  renderAppState(app)
+})
+
+$cart.addEventListener('click', function (event) {
+  var $target = event.target
+  app.view = 'cart'
+  if ($target.getAttribute('id') === 'continue') {
+    app.view = 'catalog'
   }
   renderAppState(app)
 })
