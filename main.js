@@ -137,8 +137,9 @@ function renderItemDetails(catalogItem) {
         createElement('p', {class: 'card-text'}, [catalogItem.details])
       ]),
       createElement('div', {class: 'card-footer'}, [
-        createElement('button', {class: 'btn btn-primary float-left'}, ['Add']),
-        createElement('p', {class: 'card-text text-success text-right mt-2'}, [('$' + catalogItem.price)])
+        createElement('span', {class: 'card-text text-success float-right mt-2'}, [('$' + catalogItem.price)]),
+        createElement('button', {class: 'btn btn-primary float-right mr-3'}, ['Add']),
+        createElement('button', {class: 'btn btn-warning ml-3'}, ['Back'])
       ])
     ])
   ])
@@ -214,7 +215,7 @@ $catalog.addEventListener('click', function (event) {
 
 $details.addEventListener('click', function (event) {
   var $clicked = event.target
-  if ($clicked.closest('.btn') !== null) {
+  if ($clicked.closest('.btn-primary') !== null) {
     app.cart.push(app.details.item)
     renderAppState(app)
   }
