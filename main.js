@@ -1,7 +1,6 @@
 var app = {
   view: 'catalog',
   cart: [],
-  totalPrice: 0,
   catalog: {
     items: [
       {
@@ -165,6 +164,14 @@ function findItem(catalogItems, id) {
   }
 }
 
+function getTotal(cart) {
+  var total = 0
+  for (var c = 0; c < cart.length; c++) {
+    total += cart[c].price
+  }
+  return total
+}
+
 function renderCartCount(cart) {
   return createElement('div', {class: 'float-right m-3'}, [
     createElement('h6', {class: 'text-primary'}, [('Cart (' + cart.length + ')')])
@@ -199,7 +206,7 @@ function renderCartSummary(cart, total) {
   }
   $cartList.appendChild(createElement('div', {class: 'text-right', style: 'margin-right: 3rem;'}, [
     createElement('p', {style: 'margin-top: 2rem;'}, [(cart.length + ' item(s)')]),
-    createElement('p', {class: 'text-success mt-3'}, [('Total: $' + total)])
+    createElement('p', {class: 'text-success mt-3'}, [('Total: $' + getTotal(cart))])
   ]))
 
   $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 1rem 8.5rem;', id: 'continue'}, ['Continue Shopping']))
@@ -266,7 +273,6 @@ $details.addEventListener('click', function (event) {
   var $clicked = event.target
   if ($clicked.getAttribute('id') === 'add') {
     app.cart.push(app.details.item)
-    app.totalPrice += app.details.item.price
   }
   if ($clicked.getAttribute('id') === 'return') {
     app.view = 'catalog'
