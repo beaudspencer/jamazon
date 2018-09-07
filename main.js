@@ -216,6 +216,6 @@ $details.addEventListener('click', function (event) {
   var $clicked = event.target
   if ($clicked.closest('.btn') !== null) {
     app.cart.push(app.details.item)
-    console.log(app.cart)
+    renderAppState(app)
   }
 })
