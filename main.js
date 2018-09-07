@@ -211,3 +211,10 @@ $catalog.addEventListener('click', function (event) {
   }
   renderAppState(app)
 })
+
+$details.addEventListener('click', function (event) {
+  var $clicked = event.target
+  if ($clicked.closest('.btn') !== null) {
+    console.log('Boom')
+  }
+})
