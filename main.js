@@ -255,9 +255,9 @@ $catalog.addEventListener('click', function (event) {
 })
 
 $cart.addEventListener('click', function (event) {
-  var $continue = document.querySelector('#continue')
+  var $target = event.target
   app.view = 'cart'
-  if (event.target === $continue) {
+  if ($target.getAttribute('id') === 'continue') {
     app.view = 'catalog'
   }
   renderAppState(app)
