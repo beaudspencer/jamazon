@@ -170,6 +170,23 @@ function renderCartCount(cart) {
   ])
 }
 
+function renderCartItem(cartItem) {
+  return createElement('div', {class: 'card'}, [
+    createElement('span', {}, [
+      createElement('img', {class: 'card-img'}, [])
+    ]),
+    createElement('span', {}, [
+      createElement('div', {class: 'card-body'}, [
+        createElement('h5', {class: 'text-dark'}, []),
+        createElement('p', {class: 'card-text'}, []),
+        createElement('p', {class: 'card-footer'}, [])
+      ])
+    ])
+  ])
+}
+
+renderCartItem()
+
 function viewState(view) {
   var $containers = document.querySelectorAll('[data-view]')
   for (var c = 0; c < $containers.length; c++) {
@@ -190,7 +207,7 @@ function renderAppState(appState) {
   if (appState.view === 'catalog') {
     $catalog.appendChild(renderCatalog(appState.catalog))
   }
-  else {
+  else if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
   $cart.appendChild(renderCartCount(appState.cart))
