@@ -231,7 +231,7 @@ function renderCheckout(cart) {
         createElement('p', {class: 'text-success mt-2'}, [('Total: $' + getTotal(cart))])
       ]),
       createElement('div', {class: 'card-footer text-center'}, [
-        createElement('button', {class: 'btn btn-primary'}, ['Pay'])
+        createElement('button', {class: 'btn btn-primary', id: 'pay'}, ['Pay'])
       ])
     ])
   ])
@@ -319,6 +319,15 @@ $details.addEventListener('click', function (event) {
   }
   if ($clicked.getAttribute('id') === 'return') {
     app.view = 'catalog'
+  }
+  renderAppState(app)
+})
+
+$checkout.addEventListener('click', function (e) {
+  var $target = event.target
+  if ($target.getAttribute('id') === 'pay') {
+    app.cart = []
+    app.view = 'confirm'
   }
   renderAppState(app)
 })
