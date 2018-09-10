@@ -1,5 +1,6 @@
 var app = {
   view: 'catalog',
+  sort: '',
   cart: [],
   catalog: {
     items: [
