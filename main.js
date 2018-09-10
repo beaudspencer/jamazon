@@ -247,8 +247,6 @@ function renderConfirmation() {
   ])
 }
 
-renderConfirmation()
-
 function viewState(view) {
   var $containers = document.querySelectorAll('[data-view]')
   for (var c = 0; c < $containers.length; c++) {
@@ -265,19 +263,24 @@ function renderAppState(appState) {
   $catalog.innerHTML = ''
   $details.innerHTML = ''
   $cart.innerHTML = ''
+  $checkout.innerHTML = ''
   viewState(app.view)
   $cart.appendChild(renderCartCount(appState.cart))
   if (appState.view === 'catalog') {
     $catalog.appendChild(renderCatalog(appState.catalog))
   }
-  else if (appState.view === 'details') {
+  if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
-  else if (appState.view === 'cart') {
+  if (appState.view === 'cart') {
     $cart.appendChild(renderCartSummary(appState.cart))
   }
-  else if (appState.view === 'checkout') {
+  if (appState.view === 'checkout') {
     $checkout.appendChild(renderCheckout(appState.cart))
+    $cart.innerHTML = ''
+  }
+  if (appState.view === 'confirm') {
+    $checkout.appendChild(renderConfirmation())
     $cart.innerHTML = ''
   }
 }
@@ -328,6 +331,6 @@ $checkout.addEventListener('click', function (e) {
   if ($target.getAttribute('id') === 'pay') {
     app.cart = []
     app.view = 'confirm'
+    renderAppState(app)
   }
-  renderAppState(app)
 })
