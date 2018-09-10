@@ -333,4 +333,8 @@ $checkout.addEventListener('click', function (e) {
     app.view = 'confirm'
     renderAppState(app)
   }
+  if ($target.getAttribute('id') === 'back') {
+    app.view = 'catalog'
+    renderAppState(app)
+  }
 })
