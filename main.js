@@ -243,7 +243,6 @@ function renderAppState(appState) {
   else if (appState.view === 'cart') {
     $cart.appendChild(renderCartSummary(appState.cart, app.totalPrice))
   }
-
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
@@ -268,6 +267,9 @@ $cart.addEventListener('click', function (event) {
   app.view = 'cart'
   if ($target.getAttribute('id') === 'continue') {
     app.view = 'catalog'
+  }
+  if ($target.getAttribute('id') === 'checkout') {
+    app.view = 'checkout'
   }
   renderAppState(app)
 })
