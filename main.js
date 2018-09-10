@@ -209,7 +209,10 @@ function renderCartSummary(cart, total) {
     createElement('p', {class: 'text-success mt-3'}, [('Total: $' + getTotal(cart))])
   ]))
 
-  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 1rem 8.5rem;', id: 'continue'}, ['Continue Shopping']))
+  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 0 8.5rem 0 0;', id: 'continue'}, ['Continue Shopping']))
+  $cartSummary.appendChild(createElement('div', {class: 'text-right', style: 'margin: 3.5rem 8.5rem;'}, [
+    createElement('button', {class: 'btn btn-primary', style: 'margin: auto;', id: 'checkout'}, ['Checkout'])
+  ]))
   return $cartSummary
 }
 
