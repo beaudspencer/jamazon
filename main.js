@@ -237,6 +237,18 @@ function renderCheckout(cart) {
   ])
 }
 
+function renderConfirmation() {
+  return createElement('div', {class: 'card'}, [
+    createElement('h2', {class: 'card-header'}, ['Order Confirmed!']),
+    createElement('p', {class: 'card-body'}, ['Your order has been placed and is being proccessed now.']),
+    createElement('div', {class: 'card-footer text-center'}, [
+      createElement('button', {class: 'btn btn-primary', id: 'back'}, ['Back to Catalog'])
+    ])
+  ])
+}
+
+renderConfirmation()
+
 function viewState(view) {
   var $containers = document.querySelectorAll('[data-view]')
   for (var c = 0; c < $containers.length; c++) {
