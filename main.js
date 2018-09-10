@@ -195,7 +195,7 @@ function renderCartItem(cartItem) {
   ])
 }
 
-function renderCartSummary(cart, total) {
+function renderCartSummary(cart) {
   var $cartSummary = createElement('div', {}, [
     createElement('h2', {class: 'text-center text-primary'}, ['Cart'])
   ])
@@ -214,6 +214,27 @@ function renderCartSummary(cart, total) {
     createElement('button', {class: 'btn btn-primary', id: 'checkout'}, ['Checkout'])
   ]))
   return $cartSummary
+}
+
+function renderCheckout(cart) {
+  return createElement('div', {class: ''}, [
+    createElement('h2', {class: 'text-center text-primary'}, ['Checkout']),
+    createElement('div', {class: 'card'}, [
+      createElement('h4', {class: 'card-header text-center'}, ['Customer Info']),
+      createElement('div', {class: 'card-body'}, [
+        createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Name'}, []),
+        createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Adress'}, []),
+        createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Credit Card'}, [])
+      ]),
+      createElement('div', {class: 'text-right mr-3'}, [
+        createElement('p', {}, [(cart.length + ' item(s)')]),
+        createElement('p', {class: 'text-success mt-2'}, [('Total: $' + getTotal(cart))])
+      ]),
+      createElement('div', {class: 'card-footer text-center'}, [
+        createElement('button', {class: 'btn btn-primary'}, ['Pay'])
+      ])
+    ])
+  ])
 }
 
 function viewState(view) {
@@ -241,13 +262,18 @@ function renderAppState(appState) {
     $details.appendChild(renderItemDetails(appState.details.item))
   }
   else if (appState.view === 'cart') {
-    $cart.appendChild(renderCartSummary(appState.cart, app.totalPrice))
+    $cart.appendChild(renderCartSummary(appState.cart))
+  }
+  else if (appState.view === 'checkout') {
+    $checkout.appendChild(renderCheckout(appState.cart))
+    $cart.innerHTML = ''
   }
 }
 
 var $catalog = document.querySelector('[data-view="catalog"]')
 var $details = document.querySelector('[data-view="details"]')
 var $cart = document.querySelector('[data-view="cart"]')
+var $checkout = document.querySelector('[data-view="checkout"]')
 
 renderAppState(app)
 
