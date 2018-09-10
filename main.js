@@ -179,17 +179,19 @@ function renderCartCount(cart) {
 }
 
 function renderCartItem(cartItem) {
-  return createElement('div', {class: 'row', style: 'margin: 0 auto;'}, [
-    createElement('div', {class: 'col'}, [
-      createElement('div', {style: 'width: 26rem;'}, [
-        createElement('img', {class: 'card-img float-left', src: cartItem.imageUrl}, [])
-      ])
-    ]),
-    createElement('div', {class: 'col'}, [
-      createElement('div', {class: 'card float-right', style: 'height: 100%;'}, [
-        createElement('h5', {class: 'card-header text-dark'}, [(cartItem.name + ' - ' + cartItem.brand)]),
-        createElement('p', {class: 'card-body'}, [cartItem.details]),
-        createElement('p', {class: 'text-success text-right mr-3'}, [('$' + cartItem.price)])
+  return createElement('div', {class: 'container'}, [
+    createElement('div', {class: 'row', style: 'margin: 0 auto;'}, [
+      createElement('div', {class: 'col-6'}, [
+        createElement('div', {style: 'width: 26rem;'}, [
+          createElement('img', {class: 'card-img', src: cartItem.imageUrl}, [])
+        ])
+      ]),
+      createElement('div', {class: 'col-6'}, [
+        createElement('div', {class: 'card', style: 'height: 100%;'}, [
+          createElement('h5', {class: 'card-header text-dark'}, [(cartItem.name + ' - ' + cartItem.brand)]),
+          createElement('p', {class: 'card-body'}, [cartItem.details]),
+          createElement('p', {class: 'text-success text-right mr-3'}, [('$' + cartItem.price)])
+        ])
       ])
     ])
   ])
@@ -204,45 +206,50 @@ function renderCartSummary(cart) {
   for (var c = 0; c < cart.length; c++) {
     $cartList.appendChild(createElement('li', {class: 'list-group-item'}, [renderCartItem(cart[c])]))
   }
-  $cartList.appendChild(createElement('div', {class: 'text-right', style: 'margin-right: 3rem;'}, [
+  $cartList.appendChild(createElement('div', {class: 'text-center', style: 'margin-left: 60rem;'}, [
     createElement('p', {style: 'margin-top: 2rem;'}, [(cart.length + ' item(s)')]),
     createElement('p', {class: 'text-success mt-3'}, [('Total: $' + getTotal(cart))])
   ]))
 
-  $cartSummary.appendChild(createElement('button', {class: 'btn btn-warning float-right', style: 'margin: 0 8.5rem 0 0;', id: 'continue'}, ['Continue Shopping']))
-  $cartSummary.appendChild(createElement('div', {class: 'text-right', style: 'margin: 3.5rem 8.5rem;'}, [
-    createElement('button', {class: 'btn btn-primary', id: 'checkout'}, ['Checkout'])
-  ]))
+  $cartSummary.appendChild(createElement('div', {class: 'text-center', style: 'margin-left: 41rem;'}, [
+    createElement('button', {class: 'btn btn-warning mr-3', id: 'continue'}, ['Continue Shopping']),
+    createElement('button', {class: 'btn btn-primary ml-3', id: 'checkout'}, ['Checkout'])]))
   return $cartSummary
 }
 
 function renderCheckout(cart) {
-  return createElement('div', {class: ''}, [
-    createElement('h2', {class: 'text-center text-primary'}, ['Checkout']),
-    createElement('div', {class: 'card'}, [
-      createElement('h4', {class: 'card-header text-center'}, ['Customer Info']),
-      createElement('div', {class: 'card-body'}, [
-        createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Name'}, []),
-        createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Adress'}, []),
-        createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Credit Card'}, [])
-      ]),
-      createElement('div', {class: 'text-right mr-3'}, [
-        createElement('p', {}, [(cart.length + ' item(s)')]),
-        createElement('p', {class: 'text-success mt-2'}, [('Total: $' + getTotal(cart))])
-      ]),
-      createElement('div', {class: 'card-footer text-center'}, [
-        createElement('button', {class: 'btn btn-primary', id: 'pay'}, ['Pay'])
+  return createElement('div', {class: 'container'}, [
+    createElement('div', {class: 'col-6', style: 'margin: 0 auto;'}, [
+      createElement('h2', {class: 'text-center text-primary'}, ['Checkout']),
+      createElement('div', {class: 'card'}, [
+        createElement('h4', {class: 'card-header text-center'}, ['Customer Info']),
+        createElement('div', {class: 'card-body'}, [
+          createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Name'}, []),
+          createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Adress'}, []),
+          createElement('input', {type: 'text', class: 'form-control mt-3', placeholder: 'Credit Card'}, [])
+        ]),
+        createElement('div', {class: 'text-right mr-3'}, [
+          createElement('p', {}, [(cart.length + ' item(s)')]),
+          createElement('p', {class: 'text-success mt-2'}, [('Total: $' + getTotal(cart))])
+        ]),
+        createElement('div', {class: 'card-footer text-center'}, [
+          createElement('button', {class: 'btn btn-primary', id: 'pay'}, ['Pay'])
+        ])
       ])
     ])
   ])
 }
 
 function renderConfirmation() {
-  return createElement('div', {class: 'card'}, [
-    createElement('h2', {class: 'card-header'}, ['Order Confirmed!']),
-    createElement('p', {class: 'card-body'}, ['Your order has been placed and is being proccessed now.']),
-    createElement('div', {class: 'card-footer text-center'}, [
-      createElement('button', {class: 'btn btn-primary', id: 'back'}, ['Back to Catalog'])
+  return createElement('div', {class: 'container mt-3 pt-3'}, [
+    createElement('div', {class: 'col-6', style: 'margin: 0 auto;'}, [
+      createElement('div', {class: 'card'}, [
+        createElement('h2', {class: 'card-header'}, ['Order Confirmed!']),
+        createElement('p', {class: 'card-body'}, ['Your order has been placed and is being proccessed now.']),
+        createElement('div', {class: 'card-footer text-center'}, [
+          createElement('button', {class: 'btn btn-primary', id: 'back'}, ['Back to Catalog'])
+        ])
+      ])
     ])
   ])
 }
