@@ -337,7 +337,6 @@ renderAppState(app)
 
 $catalog.addEventListener('click', function (event) {
   var $target = event.target
-  var $dropItems = document.querySelectorAll('.item')
   var $selectedCard = event.target.closest('[itemID]')
   if ($selectedCard !== null) {
     var idNum = $selectedCard.getAttribute('itemID')
@@ -347,6 +346,7 @@ $catalog.addEventListener('click', function (event) {
     renderAppState(app)
   }
   if ($target.getAttribute('id') === 'dropdown-button') {
+    var $dropItems = $target.nextSibling.querySelectorAll('a')
     $dropItems.forEach(function (element) {
       element.classList.toggle('d-none')
       element.classList.toggle('d-block')
