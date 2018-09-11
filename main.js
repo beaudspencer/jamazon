@@ -1,8 +1,8 @@
 var app = {
   view: 'catalog',
-  sort: 'not',
   cart: [],
   catalog: {
+    sort: 'not',
     items: [
       {
         itemId: 1,
@@ -118,17 +118,17 @@ function swap(array, itemOne, itemTwo) {
   array[itemTwo] = holder
 }
 
-function sortBy(catalog, sortType) {
+function sortBy(catalog) {
   var array = catalog.items.slice()
-  if (sortType !== 'not') {
+  if (catalog.sort !== 'not') {
     for (var c = 0; c < array.length; c++) {
       for (var i = 1; i < array.length; i++) {
-        if (sortType === 'high') {
+        if (catalog.sort === 'high') {
           if (array[i - 1].price < array[i].price) {
             swap(array, i - 1, i)
           }
         }
-        if (sortType === 'low') {
+        if (catalog.sort === 'low') {
           if (array[i - 1].price > array[i].price) {
             swap(array, i - 1, i)
           }
@@ -311,7 +311,7 @@ function renderAppState(appState) {
   viewState(app.view)
   $cart.appendChild(renderCartCount(appState.cart))
   if (appState.view === 'catalog') {
-    $catalog.appendChild(renderCatalog(sortBy(appState.catalog, appState.sort)))
+    $catalog.appendChild(renderCatalog(sortBy(appState.catalog)))
   }
   if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
@@ -354,15 +354,15 @@ $catalog.addEventListener('click', function (event) {
     })
   }
   if ($target.getAttribute('id') === 'high') {
-    app.sort = 'high'
+    app.catalog.sort = 'high'
     renderAppState(app)
   }
   if ($target.getAttribute('id') === 'low') {
-    app.sort = 'low'
+    app.catalog.sort = 'low'
     renderAppState(app)
   }
   if ($target.getAttribute('id') === 'not') {
-    app.sort = 'not'
+    app.catalog.sort = 'not'
     renderAppState(app)
   }
 })
