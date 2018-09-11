@@ -216,6 +216,7 @@ function renderCatalog(catalogItems, allItems) {
       continue
     }
     $brands.appendChild(createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: allItems[i].brand.toLowerCase()}, [allItems[i].brand]))
+    brands.push(allItems[i].brand)
   }
   for (var c = 0; c < catalogItems.length; c++) {
     $row.appendChild(createElement('div', {class: 'col p-3'}, [renderCatalogItem(catalogItems[c])]))
