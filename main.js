@@ -140,6 +140,20 @@ function sortBy(catalog) {
   return array
 }
 
+function filterBrand(catalog) {
+  var array = catalog.items.slice()
+  if (catalog.brand === 'not') {
+    return array
+  }
+  for (var c = 0; c < array.length; c++) {
+    if (array.items[c].brand !== catalog.brand) {
+      array.items.pop(c)
+    }
+  }
+  return array
+}
+filterBrand(app.catalog)
+
 function renderCatalogItem(catalogItem) {
   return createElement('div', {class: 'card border-info', itemID: catalogItem.itemId, style: 'width: 18.5rem; height: 30rem; margin: 0 auto;'}, [
     createElement('div', {class: 'card-body'}, []),
