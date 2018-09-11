@@ -2,7 +2,7 @@ var app = {
   view: 'catalog',
   cart: [],
   catalog: {
-    brand: 'not',
+    brand: 'unfiltered',
     sort: 'not',
     items: [
       {
@@ -140,19 +140,18 @@ function sortBy(catalog) {
   return array
 }
 
-function filterBrand(catalog) {
-  var array = catalog.items.slice()
-  if (catalog.brand === 'not') {
+function filterBrand(array, brand) {
+  if (brand === 'unfiltered') {
     return array
   }
+  var newArray = []
   for (var c = 0; c < array.length; c++) {
-    if (array.items[c].brand !== catalog.brand) {
-      array.items.pop(c)
+    if (array[c].brand.toLowerCase() === brand) {
+      newArray.push(array[c])
     }
   }
-  return array
+  return newArray
 }
-filterBrand(app.catalog)
 
 function renderCatalogItem(catalogItem) {
   return createElement('div', {class: 'card border-info', itemID: catalogItem.itemId, style: 'width: 18.5rem; height: 30rem; margin: 0 auto;'}, [
@@ -202,7 +201,7 @@ function renderCatalog(catalogItems) {
       ]),
       createElement('div', {class: 'dropdown mt-3'}, [
         createElement('button', {class: 'btn btn-secondary dropdown-toggle', id: 'dropdown-button'}, ['Filter Brand']),
-        createElement('div', {class: 'menu'}, [
+        createElement('div', {class: 'menu', id: 'filter'}, [
           createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'ludwig'}, ['Ludwig']),
           createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'vatan'}, ['Vatan']),
           createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'remo'}, ['Remo']),
@@ -342,7 +341,7 @@ function renderAppState(appState) {
   viewState(app.view)
   $cart.appendChild(renderCartCount(appState.cart))
   if (appState.view === 'catalog') {
-    $catalog.appendChild(renderCatalog(sortBy(appState.catalog)))
+    $catalog.appendChild(renderCatalog(filterBrand(sortBy(appState.catalog), appState.catalog.brand)))
   }
   if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
@@ -383,6 +382,10 @@ $catalog.addEventListener('click', function (event) {
       element.classList.toggle('d-none')
       element.classList.toggle('d-block')
     })
+  }
+  if ($target.closest('#filter') !== null && $target) {
+    app.catalog.brand = $target.getAttribute('id')
+    renderAppState(app)
   }
   if ($target.getAttribute('id') === 'high') {
     app.catalog.sort = 'high'
