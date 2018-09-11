@@ -1,6 +1,6 @@
 var app = {
   view: 'catalog',
-  sort: '',
+  sort: 'not',
   cart: [],
   catalog: {
     items: [
@@ -120,7 +120,7 @@ function swap(array, itemOne, itemTwo) {
 
 function sortBy(catalog, sortType) {
   var array = catalog.items.slice()
-  if (sortType) {
+  if (sortType !== 'not') {
     for (var c = 0; c < array.length; c++) {
       for (var i = 1; i < array.length; i++) {
         if (sortType === 'high') {
@@ -180,7 +180,8 @@ function renderCatalog(catalogItems) {
       createElement('button', {class: 'btn btn-secondary dropdown-toggle', id: 'dropdown-button'}, ['Sort by Price']),
       createElement('div', {class: 'menu'}, [
         createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'high'}, ['Highest First']),
-        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'low'}, ['Lowest First'])
+        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'low'}, ['Lowest First']),
+        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'not'}, ['Unsorted'])
       ])
     ])
   ])
@@ -353,21 +354,15 @@ $catalog.addEventListener('click', function (event) {
     })
   }
   if ($target.getAttribute('id') === 'high') {
-    if (app.sort === 'high') {
-      app.sort = ''
-    }
-    else {
-      app.sort = 'high'
-    }
+    app.sort = 'high'
     renderAppState(app)
   }
   if ($target.getAttribute('id') === 'low') {
-    if (app.sort === 'low') {
-      app.sort = ''
-    }
-    else {
-      app.sort = 'low'
-    }
+    app.sort = 'low'
+    renderAppState(app)
+  }
+  if ($target.getAttribute('id') === 'not') {
+    app.sort = 'not'
     renderAppState(app)
   }
 })
