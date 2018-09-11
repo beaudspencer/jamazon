@@ -148,7 +148,15 @@ function renderItemDetails(catalogItem) {
 
 function renderCatalog(catalog) {
   var $container = createElement('div', {class: 'container-fluid'}, [
-    createElement('h1', {class: 'text-center text-primary'}, ['Jamazon'])])
+    createElement('h1', {class: 'text-center text-primary'}, ['Jamazon']),
+    createElement('div', {class: 'dropdown'}, [
+      createElement('button', {class: 'btn btn-secondary dropdown-toggle', id: 'dropdown-button'}, ['Sort by Price']),
+      createElement('div', {class: 'menu'}, [
+        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#'}, ['Highest First']),
+        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#'}, ['Lowest First'])
+      ])
+    ])
+  ])
   var $row = createElement('div', {class: 'row justify-content-start'}, [])
   $container.appendChild($row)
   for (var c = 0; c < catalog.items.length; c++) {
@@ -301,14 +309,22 @@ var $checkout = document.querySelector('[data-view="checkout"]')
 renderAppState(app)
 
 $catalog.addEventListener('click', function (event) {
+  var $target = event.target
+  var $dropItems = document.querySelectorAll('.item')
   var $selectedCard = event.target.closest('[itemID]')
   if ($selectedCard !== null) {
     var idNum = $selectedCard.getAttribute('itemID')
     idNum = parseInt(idNum, 10)
     app.view = 'details'
     app.details.item = findItem(app.catalog.items, idNum)
+    renderAppState(app)
   }
-  renderAppState(app)
+  if ($target.getAttribute('id') === 'dropdown-button') {
+    $dropItems.forEach(function (element) {
+      element.classList.toggle('d-none')
+      element.classList.toggle('d-block')
+    })
+  }
 })
 
 $cart.addEventListener('click', function (event) {
