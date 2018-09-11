@@ -112,6 +112,33 @@ function createElement(tagName, attributes, children) {
   return $element
 }
 
+function swap(array, itemOne, itemTwo) {
+  var holder = array[itemOne]
+  array[itemOne] = array[itemTwo]
+  array[itemTwo] = holder
+}
+
+function sortBy(catalog, sortType) {
+  var array = catalog.items.slice()
+  if (sortType) {
+    for (var c = 0; c < array.length; c++) {
+      for (var i = 1; i < array.length; i++) {
+        if (sortType === 'high') {
+          if (array[i - 1].price < array[i].price) {
+            swap(array, i - 1, i)
+          }
+        }
+        if (sortType === 'low') {
+          if (array[i - 1].price > array[i].price) {
+            swap(array, i - 1, i)
+          }
+        }
+      }
+    }
+  }
+  return array
+}
+
 function renderCatalogItem(catalogItem) {
   return createElement('div', {class: 'card border-info', itemID: catalogItem.itemId, style: 'width: 18.5rem; height: 30rem; margin: 0 auto;'}, [
     createElement('div', {class: 'card-body'}, []),
@@ -146,21 +173,21 @@ function renderItemDetails(catalogItem) {
   ])
 }
 
-function renderCatalog(catalog) {
+function renderCatalog(catalogItems) {
   var $container = createElement('div', {class: 'container-fluid'}, [
     createElement('h1', {class: 'text-center text-primary'}, ['Jamazon']),
     createElement('div', {class: 'dropdown'}, [
       createElement('button', {class: 'btn btn-secondary dropdown-toggle', id: 'dropdown-button'}, ['Sort by Price']),
       createElement('div', {class: 'menu'}, [
-        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#'}, ['Highest First']),
-        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#'}, ['Lowest First'])
+        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'high'}, ['Highest First']),
+        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'low'}, ['Lowest First'])
       ])
     ])
   ])
   var $row = createElement('div', {class: 'row justify-content-start'}, [])
   $container.appendChild($row)
-  for (var c = 0; c < catalog.items.length; c++) {
-    $row.appendChild(createElement('div', {class: 'col p-3'}, [renderCatalogItem(catalog.items[c])]))
+  for (var c = 0; c < catalogItems.length; c++) {
+    $row.appendChild(createElement('div', {class: 'col p-3'}, [renderCatalogItem(catalogItems[c])]))
   }
   return $container
 }
@@ -283,7 +310,7 @@ function renderAppState(appState) {
   viewState(app.view)
   $cart.appendChild(renderCartCount(appState.cart))
   if (appState.view === 'catalog') {
-    $catalog.appendChild(renderCatalog(appState.catalog))
+    $catalog.appendChild(renderCatalog(sortBy(appState.catalog, appState.sort)))
   }
   if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
@@ -324,6 +351,24 @@ $catalog.addEventListener('click', function (event) {
       element.classList.toggle('d-none')
       element.classList.toggle('d-block')
     })
+  }
+  if ($target.getAttribute('id') === 'high') {
+    if (app.sort === 'high') {
+      app.sort = ''
+    }
+    else {
+      app.sort = 'high'
+    }
+    renderAppState(app)
+  }
+  if ($target.getAttribute('id') === 'low') {
+    if (app.sort === 'low') {
+      app.sort = ''
+    }
+    else {
+      app.sort = 'low'
+    }
+    renderAppState(app)
   }
 })
 
