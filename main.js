@@ -187,7 +187,7 @@ function renderItemDetails(catalogItem) {
   ])
 }
 
-function renderCatalog(catalogItems) {
+function renderCatalog(catalogItems, allItems) {
   var $container = createElement('div', {class: 'container-fluid'}, [
     createElement('h1', {class: 'text-center text-primary'}, ['Jamazon']),
     createElement('div', {class: 'dropdowns float-left'}, [
@@ -202,21 +202,21 @@ function renderCatalog(catalogItems) {
       createElement('div', {class: 'dropdown mt-3'}, [
         createElement('button', {class: 'btn btn-secondary dropdown-toggle', id: 'dropdown-button'}, ['Filter Brand']),
         createElement('div', {class: 'menu', id: 'filter'}, [
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'ludwig'}, ['Ludwig']),
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'vatan'}, ['Vatan']),
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'remo'}, ['Remo']),
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'paiste'}, ['Paiste']),
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'sonor'}, ['Sonor']),
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'zildjian'}, ['Zildjian']),
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'meinl'}, ['Meinl']),
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'roland'}, ['Roland']),
           createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'unfiltered'}, ['Unfiltered'])
         ])
       ])
     ])
   ])
+  var $brands = $container.querySelector('#filter')
   var $row = createElement('div', {class: 'row justify-content-start'}, [])
   $container.appendChild($row)
+  var brands = []
+  for (var i = 0; i < allItems.length; i++) {
+    if (brands.indexOf(allItems[i].brand) !== -1) {
+      continue
+    }
+    $brands.appendChild(createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: allItems[i].brand.toLowerCase()}, [allItems[i].brand]))
+  }
   for (var c = 0; c < catalogItems.length; c++) {
     $row.appendChild(createElement('div', {class: 'col p-3'}, [renderCatalogItem(catalogItems[c])]))
   }
@@ -341,7 +341,7 @@ function renderAppState(appState) {
   viewState(app.view)
   $cart.appendChild(renderCartCount(appState.cart))
   if (appState.view === 'catalog') {
-    $catalog.appendChild(renderCatalog(filterBrand(sortBy(appState.catalog), appState.catalog.brand)))
+    $catalog.appendChild(renderCatalog(filterBrand(sortBy(appState.catalog), appState.catalog.brand), appState.catalog.items))
   }
   if (appState.view === 'details') {
     $details.appendChild(renderItemDetails(appState.details.item))
