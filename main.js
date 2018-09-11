@@ -176,12 +176,27 @@ function renderItemDetails(catalogItem) {
 function renderCatalog(catalogItems) {
   var $container = createElement('div', {class: 'container-fluid'}, [
     createElement('h1', {class: 'text-center text-primary'}, ['Jamazon']),
-    createElement('div', {class: 'dropdown'}, [
-      createElement('button', {class: 'btn btn-secondary dropdown-toggle', id: 'dropdown-button'}, ['Sort by Price']),
-      createElement('div', {class: 'menu'}, [
-        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'high'}, ['Highest First']),
-        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'low'}, ['Lowest First']),
-        createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'not'}, ['Unsorted'])
+    createElement('div', {class: 'dropdowns float-left'}, [
+      createElement('div', {class: 'dropdown mb-3'}, [
+        createElement('button', {class: 'btn btn-secondary dropdown-toggle', id: 'dropdown-button'}, ['Sort by Price']),
+        createElement('div', {class: 'menu'}, [
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'high'}, ['Highest First']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'low'}, ['Lowest First']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8.5rem; border-radius: 4px;', href: '#', id: 'not'}, ['Unsorted'])
+        ])
+      ]),
+      createElement('div', {class: 'dropdown mt-3'}, [
+        createElement('button', {class: 'btn btn-secondary dropdown-toggle', id: 'dropdown-button'}, ['Filter Brand']),
+        createElement('div', {class: 'menu'}, [
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'ludwig'}, ['Ludwig']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'vatan'}, ['Vatan']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'remo'}, ['Remo']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'paiste'}, ['Paiste']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'sonor'}, ['Sonor']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'zildjian'}, ['Zildjian']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'meinl'}, ['Meinl']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'roland'}, ['Roland'])
+        ])
       ])
     ])
   ])
