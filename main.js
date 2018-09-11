@@ -2,6 +2,7 @@ var app = {
   view: 'catalog',
   cart: [],
   catalog: {
+    brand: 'not',
     sort: 'not',
     items: [
       {
@@ -195,7 +196,8 @@ function renderCatalog(catalogItems) {
           createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'sonor'}, ['Sonor']),
           createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'zildjian'}, ['Zildjian']),
           createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'meinl'}, ['Meinl']),
-          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'roland'}, ['Roland'])
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'roland'}, ['Roland']),
+          createElement('a', {class: 'item d-none text-center text-light bg-secondary', style: 'width: 8rem; border-radius: 4px;', href: '#', id: 'unfiltered'}, ['Unfiltered'])
         ])
       ])
     ])
