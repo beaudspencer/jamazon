@@ -383,7 +383,7 @@ $catalog.addEventListener('click', function (event) {
       element.classList.toggle('d-block')
     })
   }
-  if ($target.closest('#filter') !== null && $target) {
+  if ($target.closest('#filter') !== null) {
     app.catalog.brand = $target.getAttribute('id')
     renderAppState(app)
   }
