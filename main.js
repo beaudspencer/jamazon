@@ -282,7 +282,11 @@ function renderCartSummary(cart) {
 
   $cartSummary.appendChild(createElement('div', {class: 'text-center', style: 'margin-left: 41rem;'}, [
     createElement('button', {class: 'btn btn-warning mr-3', id: 'continue'}, ['Continue Shopping']),
-    createElement('button', {class: 'btn btn-primary ml-3', id: 'checkout'}, ['Checkout'])]))
+    createElement('button', {class: 'btn btn-primary ml-3', id: 'checkout'}, ['Checkout'])
+  ]))
+  $cartSummary.appendChild(createElement('div', {class: 'text-center'}, [
+    createElement('buton', {class: 'btn btn-warning', id: 'history', style: 'margin-left: 52rem; margin-top: 1rem;'}, ['Order History'])
+  ]))
   return $cartSummary
 }
 
