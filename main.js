@@ -429,6 +429,7 @@ $details.addEventListener('click', function (event) {
 $checkout.addEventListener('click', function (e) {
   var $target = event.target
   if ($target.getAttribute('id') === 'pay') {
+    app.orderHistory.push(app.cart)
     app.cart = []
     app.view = 'confirm'
     renderAppState(app)
