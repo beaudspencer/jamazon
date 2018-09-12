@@ -1,6 +1,7 @@
 var app = {
   view: 'catalog',
   cart: [],
+  orderHistory: [],
   catalog: {
     brand: 'unfiltered',
     sort: 'not',
